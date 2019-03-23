@@ -14,6 +14,7 @@ using MenuPlaner.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MenuPlaner.Models;
+using MenuPlaner.Services;
 
 namespace MenuPlaner
 {
@@ -47,6 +48,7 @@ namespace MenuPlaner
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddScoped<IMenuCardsService, MenuCardsService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
