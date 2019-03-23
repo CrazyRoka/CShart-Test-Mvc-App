@@ -56,6 +56,7 @@ namespace MenuPlaner
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.EnsureMigrationOfContext<ApplicationDbContext>();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -74,7 +75,12 @@ namespace MenuPlaner
 
             app.UseAuthentication();
 
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
         }
     }
 }
