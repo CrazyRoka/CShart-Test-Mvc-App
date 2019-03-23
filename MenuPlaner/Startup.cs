@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using MenuPlaner.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MenuPlaner.Models;
 
 namespace MenuPlaner
 {
@@ -41,6 +42,10 @@ namespace MenuPlaner
             services.AddDefaultIdentity<IdentityUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddDbContext<MenuCardsContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection")));
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
